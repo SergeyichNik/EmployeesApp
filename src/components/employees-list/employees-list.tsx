@@ -4,7 +4,9 @@ import './employees-list.css';
 type DataType = {
     name: string,
     salary: number,
-    increase: boolean
+    increase: boolean,
+    promo: boolean,
+    id: string
 }
 type PropsType = {
     data: DataType[]
@@ -15,7 +17,12 @@ const EmployeesList = (props: PropsType) => {
     return (
         <ul className="app-list list-group">
             {data.map((item) => {
-                return <EmployeesListItem name={item.name} salary={item.salary} increase={item.increase}/>})
+                return <EmployeesListItem
+                            key={item.id}
+                            name={item.name}
+                            salary={item.salary}
+                            increase={item.increase}
+                            promo={item.promo}/>})
             }
 
         </ul>

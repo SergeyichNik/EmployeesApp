@@ -5,14 +5,22 @@ import EmployeesList from '../employees-list/employees-list';
 import EmployeesAddForm from '../employees-add-form/employees-add-form';
 
 import './app.css';
+import {v1} from "uuid";
+import {useState} from "react";
 
 function App() {
 
-    const data = [
-        {name: 'John A.', salary: 800, increase: false},
-        {name: 'John B.', salary: 3000, increase: true},
-        {name: 'John C.', salary: 5000, increase: false}
+    const incData = [
+        {name: 'John A.', salary: 800, increase: false, promo: false, id: '1'},
+        {name: 'John B.', salary: 3000, increase: false, promo: false, id: '2'},
+        {name: 'John C.', salary: 5000, increase: false, promo: false, id: '3'}
     ]
+    const [data, setData] = useState(incData)
+
+    const onEmpAdd = (name: string, salary: number | string) => {
+        let newEmp = {name: name, salary: +salary, increase: false, promo: false, id: v1()}
+        setData(prevState => [...prevState, newEmp])
+    }
 
   return (
     <div className="app">
@@ -23,8 +31,10 @@ function App() {
             <AppFilter/>
         </div>
         
-        <EmployeesList data={data}/>
-        <EmployeesAddForm/>
+        <EmployeesList
+            data={data}
+        />
+        <EmployeesAddForm onEmpAdd={onEmpAdd}/>
     </div>
   );
 }
