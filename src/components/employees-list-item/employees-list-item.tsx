@@ -2,14 +2,16 @@ import './employees-list-item.css';
 import React, {useState} from "react";
 
 type PropsType = {
+    id: string
     name: string,
     salary: number,
     increase: boolean
     promo: boolean
+    onRemoveEmp: (id: string) => void
 }
 
 const EmployeesListItem = (props: PropsType) => {
-    const {name, salary, increase, promo} = props
+    const {id, name, salary, increase, promo, onRemoveEmp} = props
 
     const [isIncrease, setIncrease] = useState(increase)
     const [isPromo, setIsPromo] = useState(promo)
@@ -32,6 +34,10 @@ const EmployeesListItem = (props: PropsType) => {
         increaseClass = "list-group-item d-flex justify-content-between increase"
     }
 
+    const onRemove = () => {
+        onRemoveEmp(id)
+    }
+
     return (
         <li className={increaseClass}>
             <span onClick={onPromoChange} className="list-group-item-label">{name}</span>
@@ -45,6 +51,7 @@ const EmployeesListItem = (props: PropsType) => {
                 </button>
 
                 <button type="button"
+                        onClick={onRemove}
                         className="btn-trash btn-sm ">
                     <i className="fas fa-trash"/>
                 </button>

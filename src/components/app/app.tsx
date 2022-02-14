@@ -22,9 +22,18 @@ function App() {
         setData(prevState => [...prevState, newEmp])
     }
 
+    const isIncrease = (id: string) => {
+        setData
+
+    }
+
+    const onRemoveEmp = (id: string) => {
+        setData(data.filter((item) => item.id !== id))
+    }
+    console.log(data)
   return (
     <div className="app">
-        <AppInfo />
+        <AppInfo empNum={incData.length}/>
 
         <div className="search-panel">
             <SearchPanel/>
@@ -33,6 +42,7 @@ function App() {
         
         <EmployeesList
             data={data}
+            onRemoveEmp={onRemoveEmp}
         />
         <EmployeesAddForm onEmpAdd={onEmpAdd}/>
     </div>
