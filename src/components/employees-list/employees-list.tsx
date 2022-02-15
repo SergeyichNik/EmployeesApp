@@ -2,7 +2,7 @@ import EmployeesListItem from "../employees-list-item/employees-list-item";
 
 import './employees-list.css';
 import React from "react";
-type DataType = {
+export type DataType = {
     name: string,
     salary: number,
     increase: boolean,

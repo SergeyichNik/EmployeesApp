@@ -1,5 +1,5 @@
 import './employees-list-item.css';
-import React, {useState} from "react";
+import React from "react";
 
 type PropsType = {
     id: string

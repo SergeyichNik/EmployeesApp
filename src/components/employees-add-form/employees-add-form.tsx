@@ -19,8 +19,12 @@ const EmployeesAddForm = (props: PropsType) => {
 
     const onAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        props.onEmpAdd(newEmp.name, newEmp.salary)
-        setNewEmp({name: '', salary: ''})
+        if (newEmp.name === '' || newEmp.salary === '' ) {
+            return
+        } else {
+            props.onEmpAdd(newEmp.name, newEmp.salary)
+            setNewEmp({name: '', salary: ''})
+        }
     }
 
     return (
