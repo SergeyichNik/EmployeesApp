@@ -6,7 +6,7 @@ import EmployeesAddForm from '../employees-add-form/employees-add-form';
 
 import './app.css';
 import {v1} from "uuid";
-import {useState} from "react";
+import React, {useState} from "react";
 
 function App() {
 
@@ -22,18 +22,38 @@ function App() {
         setData(prevState => [...prevState, newEmp])
     }
 
-    const isIncrease = (id: string) => {
-        setData
+    const isOnIncrease = (name: string | undefined, id: string) => {
+        setData(data.map<any>(item => {
+            if (item.id === id) {
+                switch (name) {
+                    case 'increase':
+                        return  {...item, increase: !item.increase};
+                    case 'promo':
+                        return {...item, promo: !item.promo};
+                }
+            }
+            return item;
+        }))
 
     }
+
+    const empIncreaseNum = () => {
+       let newData = data.filter((item) => item.increase);
+        return newData.length;
+    }
+
+    console.log(empIncreaseNum())
+
+
 
     const onRemoveEmp = (id: string) => {
         setData(data.filter((item) => item.id !== id))
     }
-    console.log(data)
   return (
     <div className="app">
-        <AppInfo empNum={incData.length}/>
+        <AppInfo empNum={data.length}
+                 empIncreaseNum={empIncreaseNum}
+        />
 
         <div className="search-panel">
             <SearchPanel/>
@@ -43,6 +63,7 @@ function App() {
         <EmployeesList
             data={data}
             onRemoveEmp={onRemoveEmp}
+            isOnIncrease={isOnIncrease }
         />
         <EmployeesAddForm onEmpAdd={onEmpAdd}/>
     </div>

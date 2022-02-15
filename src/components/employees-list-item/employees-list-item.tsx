@@ -8,29 +8,24 @@ type PropsType = {
     increase: boolean
     promo: boolean
     onRemoveEmp: (id: string) => void
+    isOnIncrease: (name: string | undefined, id: string) => void
 }
 
 const EmployeesListItem = (props: PropsType) => {
-    const {id, name, salary, increase, promo, onRemoveEmp} = props
+    const {id, name, salary, increase, promo, onRemoveEmp, isOnIncrease} = props
 
-    const [isIncrease, setIncrease] = useState(increase)
-    const [isPromo, setIsPromo] = useState(promo)
-
-    const onIncreaseChange = () => {
-        setIncrease(!isIncrease)
-    }
-
-    const onPromoChange = () => {
-        setIsPromo(!isPromo)
+    const onIncreaseChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+        let {name} = e.currentTarget.dataset
+        isOnIncrease(name, id)
     }
 
     let increaseClass = "list-group-item d-flex justify-content-between"
 
-    if (isPromo) {
+    if (promo) {
         increaseClass += ' like'
     }
 
-    if (isIncrease) {
+    if (increase) {
         increaseClass = "list-group-item d-flex justify-content-between increase"
     }
 
@@ -40,11 +35,12 @@ const EmployeesListItem = (props: PropsType) => {
 
     return (
         <li className={increaseClass}>
-            <span onClick={onPromoChange} className="list-group-item-label">{name}</span>
+            <span data-name={"promo"} onClick={onIncreaseChange} className="list-group-item-label">{name}</span>
             <input type="text" className="list-group-item-input" defaultValue={salary + ' $'}/>
             <div className='d-flex justify-content-center align-items-center'>
                 <button
                     type="button"
+                    data-name={"increase"}
                     className="btn-cookie btn-sm "
                     onClick={onIncreaseChange}>
                     <i className="fas fa-cookie"/>
